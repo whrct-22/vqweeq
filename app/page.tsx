@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ArrowRight, TrendingUp, BarChart3, Zap, ChevronDown, Shield, Globe, Users } from "lucide-react"
 import Link from "next/link"
+import { StarsAnimation } from "@/components/stars-animation"
 
 export default function HomePage() {
   const scrollToContent = () => {
@@ -13,24 +14,13 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+      <section className="relative h-screen w-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 fixed top-0 left-0">
         {/* 背景装饰效果 */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] opacity-20"></div>
+          <div className="absolute inset-0 bg-[url('/home-background.webp?height=1080&width=1920')] opacity-20"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           <div className="absolute inset-0">
-            {[...Array(50)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-1 h-1 bg-white/30 rounded-full animate-pulse"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${2 + Math.random() * 2}s`,
-                }}
-              />
-            ))}
+            <StarsAnimation />
           </div>
         </div>
 
@@ -49,7 +39,7 @@ export default function HomePage() {
           <div className="flex flex-col items-center gap-6 mb-16">
             <Button
               size="lg"
-              className="text-lg px-12 py-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+              className="text-lg px-12 py-6 bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-400 hover:to-red-400 text-white rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
               asChild
             >
               <Link href="/trading">免费开始使用</Link>
@@ -156,13 +146,21 @@ export default function HomePage() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8 py-4" asChild>
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-4 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 hover:from-cyan-400 hover:via-blue-400 hover:to-indigo-400 text-white shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105" 
+                asChild
+              >
                 <Link href="/trading">
                   开始交易
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-transparent" asChild>
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:via-teal-400 hover:to-cyan-400 text-white shadow-lg hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105" 
+                asChild
+              >
                 <Link href="/charts">查看图表</Link>
               </Button>
             </div>

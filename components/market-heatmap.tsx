@@ -24,10 +24,10 @@ const heatmapData = [
 
 export function MarketHeatmap() {
   const getChangeColor = (change: number) => {
-    if (change > 2) return "bg-chart-5 text-white"
-    if (change > 0) return "bg-chart-5/70 text-white"
-    if (change > -2) return "bg-chart-4/70 text-white"
-    return "bg-chart-4 text-white"
+    if (change > 2) return "bg-green-500 text-white"
+    if (change > 0) return "bg-green-400 text-white"
+    if (change > -2) return "bg-red-400 text-white"
+    return "bg-red-500 text-white"
   }
 
   const getSizeClass = (size: string) => {
@@ -45,13 +45,13 @@ export function MarketHeatmap() {
 
   const getSectorColor = (sector: string) => {
     const colors = {
-      tech: "border-l-chart-1",
-      finance: "border-l-chart-2",
-      healthcare: "border-l-chart-3",
-      consumer: "border-l-chart-4",
-      energy: "border-l-chart-5",
+      tech: "border-l-blue-500",
+      finance: "border-l-green-500",
+      healthcare: "border-l-yellow-500",
+      consumer: "border-l-red-500",
+      energy: "border-l-purple-500",
     }
-    return colors[sector as keyof typeof colors] || "border-l-muted"
+    return colors[sector as keyof typeof colors] || "border-l-gray-500"
   }
 
   return (
@@ -64,11 +64,11 @@ export function MarketHeatmap() {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-chart-5 rounded"></div>
+              <div className="w-4 h-4 bg-green-500 rounded"></div>
               <span className="text-sm">上涨</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-chart-4 rounded"></div>
+              <div className="w-4 h-4 bg-red-500 rounded"></div>
               <span className="text-sm">下跌</span>
             </div>
           </div>
@@ -105,46 +105,46 @@ export function MarketHeatmap() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <Card className="p-4 bg-card border-border">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-3 h-3 bg-chart-1 rounded"></div>
+            <div className="w-3 h-3 bg-blue-500 rounded"></div>
             <span className="font-medium">科技</span>
           </div>
-          <div className="text-2xl font-bold text-chart-5">+0.8%</div>
+          <div className="text-2xl font-bold text-green-500">+0.8%</div>
           <div className="text-sm text-muted-foreground">15只股票</div>
         </Card>
 
         <Card className="p-4 bg-card border-border">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-3 h-3 bg-chart-2 rounded"></div>
+            <div className="w-3 h-3 bg-green-500 rounded"></div>
             <span className="font-medium">金融</span>
           </div>
-          <div className="text-2xl font-bold text-chart-5">+1.2%</div>
+          <div className="text-2xl font-bold text-green-500">+1.2%</div>
           <div className="text-sm text-muted-foreground">8只股票</div>
         </Card>
 
         <Card className="p-4 bg-card border-border">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-3 h-3 bg-chart-3 rounded"></div>
+            <div className="w-3 h-3 bg-yellow-500 rounded"></div>
             <span className="font-medium">医疗</span>
           </div>
-          <div className="text-2xl font-bold text-chart-4">-0.3%</div>
+          <div className="text-2xl font-bold text-red-500">-0.3%</div>
           <div className="text-sm text-muted-foreground">6只股票</div>
         </Card>
 
         <Card className="p-4 bg-card border-border">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-3 h-3 bg-chart-4 rounded"></div>
+            <div className="w-3 h-3 bg-red-500 rounded"></div>
             <span className="font-medium">消费</span>
           </div>
-          <div className="text-2xl font-bold text-chart-4">-0.7%</div>
+          <div className="text-2xl font-bold text-red-500">-0.7%</div>
           <div className="text-sm text-muted-foreground">4只股票</div>
         </Card>
 
         <Card className="p-4 bg-card border-border">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-3 h-3 bg-chart-5 rounded"></div>
+            <div className="w-3 h-3 bg-purple-500 rounded"></div>
             <span className="font-medium">能源</span>
           </div>
-          <div className="text-2xl font-bold text-chart-5">+2.1%</div>
+          <div className="text-2xl font-bold text-green-500">+2.1%</div>
           <div className="text-sm text-muted-foreground">3只股票</div>
         </Card>
       </div>

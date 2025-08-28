@@ -15,11 +15,26 @@ interface AppLayoutProps {
 export function AppLayout({ children }: AppLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [showFullLayout, setShowFullLayout] = useState(false)
   const pathname = usePathname()
 
   const isHomePage = pathname === "/"
-  const showSearch = !isHomePage
-  const showMarket = !isHomePage
+  const showSearch = !isHomePage || showFullLayout
+  const showMarket = !isHomePage || showFullLayout
+  const showSidebar = !isHomePage || showFullLayout
+
+  useEffect(() => {
+    if (isHomePage) {
+      const handleScroll = () => {
+        setShowFullLayout(window.scrollY > 100)
+      }
+      
+      window.addEventListener('scroll', handleScroll)
+      return () => window.removeEventListener('scroll', handleScroll)
+    } else {
+      setShowFullLayout(true)
+    }
+  }, [isHomePage])
 
   useEffect(() => {
     setSidebarOpen(false)
@@ -66,31 +81,41 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
-      <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} showSearch={showSearch} showMarket={showMarket} />
+      <Header 
+        onMenuClick={() => setSidebarOpen(!sidebarOpen)} 
+        showSearch={showSearch} 
+        showMarket={showMarket}
+        showMinimal={isHomePage && !showFullLayout}
+      />
 
       <div className="flex flex-1">
-        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        {showSidebar && (
+          <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        )}
 
         <main
           className={cn(
             "flex-1 transition-all duration-300 ease-in-out",
-            getMainMargin(), // 使用动态计算的margin
-            sidebarOpen ? "ml-64" : "ml-0", // 移动端动态宽度
+            showSidebar ? getMainMargin() : "",
+            sidebarOpen && showSidebar ? "ml-64" : "ml-0",
+            isHomePage && !showFullLayout ? "ml-0" : ""
           )}
         >
           <div className={isHomePage ? "" : "container mx-auto px-4 py-6"}>{children}</div>
         </main>
       </div>
 
-      <div
-        className={cn(
-          "transition-all duration-300 ease-in-out",
-          getMainMargin(), // 页脚也使用动态margin
-          sidebarOpen ? "ml-64" : "ml-0",
-        )}
-      >
-        <Footer />
-      </div>
+      {showSidebar && (
+        <div
+          className={cn(
+            "transition-all duration-300 ease-in-out",
+            getMainMargin(),
+            sidebarOpen ? "ml-64" : "ml-0",
+          )}
+        >
+          <Footer />
+        </div>
+      )}
     </div>
   )
 }

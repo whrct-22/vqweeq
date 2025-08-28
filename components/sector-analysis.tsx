@@ -6,13 +6,13 @@ import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, 
 import { TrendingUp, TrendingDown } from "lucide-react"
 
 const sectorData = [
-  { name: "科技", value: 28.5, change: 0.8, color: "hsl(var(--chart-1))", stocks: 156 },
-  { name: "金融", value: 18.2, change: 1.2, color: "hsl(var(--chart-2))", stocks: 89 },
-  { name: "医疗", value: 15.7, change: -0.3, color: "hsl(var(--chart-3))", stocks: 67 },
-  { name: "消费", value: 12.4, change: -0.7, color: "hsl(var(--chart-4))", stocks: 78 },
-  { name: "能源", value: 8.9, change: 2.1, color: "hsl(var(--chart-5))", stocks: 34 },
-  { name: "工业", value: 7.8, change: 0.4, color: "hsl(var(--primary))", stocks: 45 },
-  { name: "其他", value: 8.5, change: -0.1, color: "hsl(var(--muted-foreground))", stocks: 89 },
+  { name: "科技", value: 28.5, change: 0.8, color: "#3b82f6", stocks: 156 },
+  { name: "金融", value: 18.2, change: 1.2, color: "#10b981", stocks: 89 },
+  { name: "医疗", value: 15.7, change: -0.3, color: "#f59e0b", stocks: 67 },
+  { name: "消费", value: 12.4, change: -0.7, color: "#ef4444", stocks: 78 },
+  { name: "能源", value: 8.9, change: 2.1, color: "#8b5cf6", stocks: 34 },
+  { name: "工业", value: 7.8, change: 0.4, color: "#06b6d4", stocks: 45 },
+  { name: "其他", value: 8.5, change: -0.1, color: "#ec4899", stocks: 89 },
 ]
 
 const performanceData = [
@@ -99,7 +99,7 @@ export function SectorAnalysis() {
                 />
                 <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="today" fill="hsl(var(--primary))" radius={[2, 2, 0, 0]} />
+                <Bar dataKey="today" fill="#3b82f6" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
