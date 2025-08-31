@@ -7,14 +7,14 @@ type Theme = "light" | "dark" | "system"
 
 export function useTheme() {
   const { settings, updatePreferences } = useSettings()
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("dark")
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light")
 
   // Apply theme to document
   useEffect(() => {
     const root = window.document.documentElement
-    const theme = settings.preferences.theme as Theme
+    const theme = settings?.preferences?.theme as Theme || "light"
 
-    let effectiveTheme: "light" | "dark" = "dark"
+    let effectiveTheme: "light" | "dark" = "light"
 
     if (theme === "system") {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
@@ -32,7 +32,20 @@ export function useTheme() {
     if (metaThemeColor) {
       metaThemeColor.setAttribute("content", effectiveTheme === "dark" ? "#0a0a0a" : "#ffffff")
     }
-  }, [settings.preferences.theme])
+  }, [settings?.preferences?.theme])
+
+  // Apply default theme immediately on mount
+  useEffect(() => {
+    const root = window.document.documentElement
+    root.classList.remove("light", "dark")
+    root.classList.add("light")
+    setResolvedTheme("light")
+
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute("content", "#ffffff")
+    }
+  }, [])
 
   // Listen for system theme changes
   useEffect(() => {

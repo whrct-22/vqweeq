@@ -36,8 +36,8 @@ export function PortfolioChart() {
         <Line
           type="monotone"
           dataKey="value"
-          stroke="hsl(var(--primary))"
-          strokeWidth={2}
+          stroke="#3b82f6"
+          strokeWidth={3}
           dot={false}
           activeDot={{ r: 4, fill: "hsl(var(--primary))" }}
         />
