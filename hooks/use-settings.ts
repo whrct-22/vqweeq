@@ -18,6 +18,7 @@ interface PreferenceSettings {
   timezone: string
   chartType: string
   defaultTimeframe: string
+  sidebarCollapsed: boolean
 }
 
 interface SecuritySettings {
@@ -49,12 +50,13 @@ const defaultSettings: UserSettings = {
     pushNotifications: false,
   },
   preferences: {
-    theme: "dark",
+    theme: "light",
     language: "zh-CN",
     currency: "USD",
     timezone: "Asia/Shanghai",
     chartType: "candlestick",
     defaultTimeframe: "1D",
+    sidebarCollapsed: true,
   },
   security: {
     twoFactorAuth: false,

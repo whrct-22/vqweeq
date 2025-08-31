@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { Header } from "./header"
 import { Sidebar } from "./sidebar"
 import { Footer } from "./footer"
+import { useSettings } from "@/hooks/use-settings"
 import { cn } from "@/lib/utils"
 
 interface AppLayoutProps {
@@ -14,7 +15,8 @@ interface AppLayoutProps {
 
 export function AppLayout({ children }: AppLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const { settings } = useSettings()
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(settings.preferences.sidebarCollapsed)
   const [showFullLayout, setShowFullLayout] = useState(false)
   const pathname = usePathname()
 
@@ -41,36 +43,8 @@ export function AppLayout({ children }: AppLayoutProps) {
   }, [pathname])
 
   useEffect(() => {
-    const saved = localStorage.getItem("sidebar-collapsed")
-    if (saved !== null) {
-      setSidebarCollapsed(JSON.parse(saved))
-    }
-
-    // 监听localStorage变化
-    const handleStorageChange = () => {
-      const saved = localStorage.getItem("sidebar-collapsed")
-      if (saved !== null) {
-        setSidebarCollapsed(JSON.parse(saved))
-      }
-    }
-
-    window.addEventListener("storage", handleStorageChange)
-
-    // 使用自定义事件监听同页面内的变化
-    const handleSidebarToggle = () => {
-      const saved = localStorage.getItem("sidebar-collapsed")
-      if (saved !== null) {
-        setSidebarCollapsed(JSON.parse(saved))
-      }
-    }
-
-    window.addEventListener("sidebar-toggle", handleSidebarToggle)
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange)
-      window.removeEventListener("sidebar-toggle", handleSidebarToggle)
-    }
-  }, [])
+    setSidebarCollapsed(settings.preferences.sidebarCollapsed)
+  }, [settings.preferences.sidebarCollapsed])
 
   const getMainMargin = () => {
     if (sidebarCollapsed) {

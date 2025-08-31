@@ -18,6 +18,7 @@ import {
   ChevronRight,
 } from "lucide-react"
 import { useState, useEffect } from "react"
+import { useSettings } from "@/hooks/use-settings"
 
 interface SidebarProps {
   isOpen: boolean
@@ -37,20 +38,17 @@ const navigation = [
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname()
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const { settings, updatePreferences } = useSettings()
+  const [isCollapsed, setIsCollapsed] = useState(settings.preferences.sidebarCollapsed)
 
   useEffect(() => {
-    const saved = localStorage.getItem("sidebar-collapsed")
-    if (saved !== null) {
-      setIsCollapsed(JSON.parse(saved))
-    }
-  }, [])
+    setIsCollapsed(settings.preferences.sidebarCollapsed)
+  }, [settings.preferences.sidebarCollapsed])
 
   const toggleCollapsed = () => {
     const newState = !isCollapsed
     setIsCollapsed(newState)
-    localStorage.setItem("sidebar-collapsed", JSON.stringify(newState))
-    window.dispatchEvent(new Event("sidebar-toggle"))
+    updatePreferences({ sidebarCollapsed: newState })
   }
 
   return (
